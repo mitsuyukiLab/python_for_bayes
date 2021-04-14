@@ -134,8 +134,6 @@
 
 ### 第4章
 
-**注意** バージョン3.9以降のPyMCでは、以下のコードはJupyter Notebook上でのみ実行可能となっている。そのためコード全体をJupyter Notebook内のセルにコピーして実行しなければならない。
-
 + コード4.1 回帰モデルのベイズ分析(自然共役事前分布): [pybayes\_mcmc\_reg\_ex1.py](python/pybayes_mcmc_reg_ex1.py)
 + コード4.2 回帰モデルのベイズ分析(正規分布 + 逆ガンマ分布): [pybayes\_mcmc\_reg\_ex2.py](python/pybayes_mcmc_reg_ex2.py)
 + コード4.3 回帰モデルのベイズ分析(重回帰モデル): [pybayes\_mcmc\_reg\_ex3.py](python/pybayes_mcmc_reg_ex3.py)
@@ -145,8 +143,6 @@
 + コード4.7 ポアソン回帰モデルのベイズ分析: [pybayes\_mcmc\_poisson.py](python/pybayes_mcmc_poisson.py)
 
 ### 第5章
-
-**注意** バージョン3.9以降のPyMCでは、以下のコードはJupyter Notebook上でのみ実行可能となっている。そのためコード全体をJupyter Notebook内のセルにコピーして実行しなければならない。
 
 + コード5.1 ノイズを含むAR(1)過程: [pybayes\_mcmc\_ar1.py](python/pybayes_mcmc_ar1.py)
 + コード5.2 使用電力量のトレンドと季節変動: [pybayes\_mcmc\_decomp.py](python/pybayes_mcmc_decomp.py)
@@ -159,3 +155,15 @@
 
 + コード6.1 正規分布に対するギブズ・サンプラー: [pybayes\_gibbs\_gaussian.py](python/pybayes_gibbs_gaussian.py)
 + コード6.2 回帰モデルに対するギブズ・サンプラー: [pybayes\_gibbs\_regression.py](python/pybayes_gibbs_regression.py)
+
+
+## How to use Dockerfile
+
+GitとDockerがインストールされていることを前提とする
+
+```sh
+$ git clone https://github.com/mitsuyukiLab/python_for_bayes.git
+$ cd python_for_bayes
+$ docker build -t rinko2021 .
+$ docker run -it -v $(pwd)/python:/workspace -w /workspace rinko2021
+```

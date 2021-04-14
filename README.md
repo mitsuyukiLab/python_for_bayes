@@ -16,8 +16,11 @@ Gitと[Docker](https://docs.docker.com/desktop/#download-and-install)がイン�
 $ git clone https://github.com/mitsuyukiLab/python_for_bayes.git
 $ cd python_for_bayes
 $ docker build -t rinko2021 .
-$ docker run -it -v $(pwd)/python:/workspace -w /workspace rinko2021
+$ docker run -it -v ${pwd}/python:/workspace -w /workspace rinko2021 # Windows PowerShell or Windows Terminal (not Command Prompt)
+$ docker run -it -v $(pwd)/python:/workspace -w /workspace rinko2021 # Linux or Mac
 ```
+
+- Docker for Windowsで`docker build`時にaptがRelease file for xxx is not valid yetというエラーになった場合は[こちら](https://github.com/mitsuyukiLab/python_for_bayes/issues/4)で解決できる
 
 あとは、Dockerコンテナ上のカレントディレクトリにPythonファイルがあるのでそれを実行すれば良い
 

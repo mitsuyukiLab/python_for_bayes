@@ -4,115 +4,33 @@
 
 ---
 
-- [中妻照雄「Pythonによるベイズ統計学入門」](#中妻照雄pythonによるベイズ統計学入門)
-  - [PyMC4について](#pymc4について)
-  - [正誤表（2021年1月22日改定）](#正誤表2021年1月22日改定)
-  - [PythonとPyMCのインストール手順](#pythonとpymcのインストール手順)
-    - [ステップ1: Anacondaのインストール](#ステップ1-anacondaのインストール)
-    - [ステップ2: PyMCを実行する環境の設定](#ステップ2-pymcを実行する環境の設定)
-  - [Jupyter Notebookを始める方法](#jupyter-notebookを始める方法)
-    - [方法1: Anaconda NavigatorからJupyter Notebookを起動する方法](#方法1-anaconda-navigatorからjupyter-notebookを起動する方法)
-    - [方法2: CLIから起動する方法](#方法2-cliから起動する方法)
-  - [Pythonコード](#pythonコード)
-    - [第2章](#第2章)
-    - [第3章](#第3章)
-    - [第4章](#第4章)
-    - [第5章](#第5章)
-    - [第6章](#第6章)
+## 正誤表
 
----
++ [ERRATA.md](https://github.com/nakatsuma/python_for_bayes/blob/master/ERRATA.md)
 
-## PyMC4について
+## Dockerコンテナ上での動かし方
 
-+ [公式発表（英語）](https://pymc-devs.medium.com/the-future-of-pymc3-or-theano-is-dead-long-live-theano-d8005f8a0e9b)
-+ 本書5ページの脚注で言及しているTensorFlowを利用することを目指したPyMCの次期バージョン (PyMC4) の開発は中止された。
-+ 今後は現行バージョンPyMC3の基盤であるTheanoをPyMCの開発チームが引き継ぎ、Theanoから分岐したTheano-PyMCとして開発を継続することが決まっている。
-+ PyMC4への移行が停止されたことで、本書で使用しているPyMC3用のPythonコードは、細かい仕様の変更を除き、今後も継続して使用できる見通しである。
+Gitと[Docker](https://docs.docker.com/desktop/#download-and-install)がインストールされていることを前提とする
 
-## 正誤表（2021年1月22日改定）
-
-+ [ERRATA.md](ERRATA.md)
-
-## PythonとPyMCのインストール手順
-
-### ステップ1: Anacondaのインストール
-
-1. 古いAnacondaがインストールされているときは、この[手順](https://docs.anaconda.com/anaconda/install/uninstall/)でアンインストールしておく。
-
-2. Anacondaのインストーラー (Windows, macOS or Linux) を[ここ](https://www.anaconda.com/distribution/)から入手する.
-
-3. ダウンロードしたインストーラーをダブルクリックして Anacondaのインストールを行う。
-
-### ステップ2: PyMCを実行する環境の設定
-
-`Anaconda Powershell Prompt` (Windows) あるいは`Terminal` (macos, Linux) を立ち上げて、
-
-```IPython
-(base) PS C:\Users\Thomas> conda create -n bayes jupyterlab seaborn spyder tqdm
+```sh
+$ git clone https://github.com/mitsuyukiLab/python_for_bayes.git
+$ cd python_for_bayes
+$ docker build -t rinko2021 .
+$ docker run -it -v $(pwd)/python:/workspace -w /workspace rinko2021
 ```
 
-とする。続けて
+あとは、Dockerコンテナ上のカレントディレクトリにPythonファイルがあるのでそれを実行すれば良い
 
-```IPython
-(base) PS C:\Users\Thomas> conda activate bayes
+例えば以下のように実行する
+
+```sh
+$ python pybayes_mcmc_reg_ex1.py
 ```
 
-とすると、以下のようにプロンプトが変わる。
+## Dockerを利用せずに環境構築をする
 
-```IPython
-(bayes) PS C:\Users\Thomas>
-```
+本家の[README.md](https://github.com/nakatsuma/python_for_bayes#python%E3%81%A8pymc%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%89%8B%E9%A0%86)を参照のこと
 
-続いてpipでPyMCをインストールする。
-
-```IPython
-(bayes) PS C:\Users\Thomas> pip install pymc3
-```
-
-もしpipでのインストールがうまくいかないときは
-
-```IPython
-(bayes) PS C:\Users\Thomas> conda install -c conda-forge pymc3
-```
-
-とする。
-
-最後に
-
-```IPython
-(bayes) PS C:\Users\Thomas> python -m ipykernel install --user --name bayes --display-name "Python (Bayes)"
-```
-
-とすれば、環境の設定が完了する。
-
----
-
-## Jupyter Notebookを始める方法
-
-### 方法1: Anaconda NavigatorからJupyter Notebookを起動する方法
-
-`Anaconda Navigator`を`Start Menu` (Windows) か `Launchpad` (macOS) から起動する。 あるいは、`Anaconda Powershell Prompt` (Windows) か `Terminal` (macOS, Linux) を立ち上げて、
-
-```IPython
-(base) PS C:\Users\Thomas> anaconda-navigator
-```
-
-としてもよい。そして、`Anaconda Navigator`で`Jupyter Notebook`の`Launch`ボタンをクリックする。
-
-### 方法2: CLIから起動する方法
-
-`Anaconda Powershell Prompt` (Windows) か `Terminal` (macOS, Linux) を立ち上げて、
-
-```IPython
-(base) PS C:\Users\Thomas> conda activate bayes
-(bayes) PS C:\Users\Thomas> jupyter notebook
-```
-
-とする。
-
-方法1あるいは方法2を実行すると、規定のブラウザーが立ち上がり、Jupyter Notebookが起動する。その画面の右上にある`New`のプルダウンメニューの中にある`Python (Bayes)`を選んでNotebookを開始すればよい。
-
-**注意:** `New`のプルダウンメニューの中にある`Python 3`を選んでNotebookを開始すると、PyMCを使用することができない。
 
 ## Pythonコード
 
@@ -155,15 +73,3 @@
 
 + コード6.1 正規分布に対するギブズ・サンプラー: [pybayes\_gibbs\_gaussian.py](python/pybayes_gibbs_gaussian.py)
 + コード6.2 回帰モデルに対するギブズ・サンプラー: [pybayes\_gibbs\_regression.py](python/pybayes_gibbs_regression.py)
-
-
-## How to use Dockerfile
-
-GitとDockerがインストールされていることを前提とする
-
-```sh
-$ git clone https://github.com/mitsuyukiLab/python_for_bayes.git
-$ cd python_for_bayes
-$ docker build -t rinko2021 .
-$ docker run -it -v $(pwd)/python:/workspace -w /workspace rinko2021
-```
